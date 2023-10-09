@@ -13,7 +13,7 @@ print('DDOS WITH 7 LAYER')
 print('1. UDP')
 choice = input('Select Methods : ')
 
-if choice == ('1'):
+if choice.startswith("1"):
     pass
     trgt = raw_input('IP Target : ')
     port = raw_input('Port : ')
