@@ -10,8 +10,6 @@ blue = '\033[1;34m'
 green = '\033[1;32m'
 time.sleep(0.5)
 print('DDOS WITH 7 LAYER')
-print('1. UDP')
-choice = input('Select Methods : ')
     pass
     trgt = raw_input('IP Target : ')
     port = raw_input('Port : ')
