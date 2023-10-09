@@ -9,15 +9,8 @@ red = '\033[1;91m'
 blue = '\033[1;34m'
 green = '\033[1;32m'
 time.sleep(0.5)
-print(f"""{red}
-DDOS WITH 7 LAYER
-""")
-print(f"""{green}
-      1. UDP
-      2. TCP
-      3. HTTP
-      4. HTTPS
-""")
+print(f"{red}DDOS WITH 7 LAYER")
+print(f"{green}1. UDP")
 choice = input("Select Methods : ")
 
 if choice == ("1"):
