@@ -1,28 +1,35 @@
-import os
-from Crypto.Cipher import AES
 import base64
+from Crypto.Cipher import AES
 import hashlib
+import os
+from os import path
 
-def decrypt_file(file_path, key):
-    with open(file_path, 'rb') as file:
-        encrypted_data = file.read()
-    iv = encrypted_data[:16]
-    encoded_encrypted_data = encrypted_data[16:]
-    cipher = AES.new(key, AES.MODE_CBC, iv)
-    decrypted_data = cipher.decrypt(encoded_encrypted_data)
-    return decrypted_data.rstrip(b'\x00')
+def decrypt_file(file_path):
+    encrypted_file = open(file_path, 'r').read()
 
-def get_key(password):
-    return hashlib.md5(password.encode()).digest()
+    # Decode Base64
+    decoded_data = base64.b64decode(encrypted_file)
 
-def decrypt_all_files_in_folder(folder_path, password):
-    key = get_key(password)
-    for filename in os.listdir(folder_path):
-        decrypted_data = decrypt_file(os.path.join(folder_path, filename), key)
-        with open(os.path.join(folder_path, filename.replace('.uajs', '')), 'wb') as file:
-            file.write(decrypted_data)
+    # Compute MD5 hash
+    md5 = hashlib.md5()
+    md5.update(decoded_data)
+    key = md5.digest()
 
-folder_path = input("Path : ")
-password = '123123'
+    # Decrypt AES
+    cipher = AES.new(key, AES.MODE_ECB)
+    decrypted_data = cipher.decrypt(decoded_data).decode('utf-8')
 
-decrypt_all_files_in_folder(folder_path, password)
+    decrypted_file_path = file_path + "_decrypted"
+    with open(decrypted_file_path, 'w') as f:
+        f.write(decrypted_data)
+
+    return decrypted_file_path
+
+file_path = input("File path/dir to decrypt: ")
+
+if path.exists(file_path):
+    print("Decrypting...")
+    decrypted_file_path = decrypt_file(file_path)
+    print("Decrypt Success! Decrypted file saved at: " + decrypted_file_path)
+else:
+    print("File not found.")
